@@ -1,3 +1,4 @@
+import math
 characters = [
     # lowercase characters
 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
@@ -39,6 +40,7 @@ def XORonLetter(letter, keyLetter):
     return decode(ncryptltr)
 
 def XORonSentence(sentence, key):
+    key = generateKey(sentence, key)
     ncryptsent = ""
 
     for i in range(len(sentence)):
@@ -47,6 +49,25 @@ def XORonSentence(sentence, key):
 
     return ncryptsent
 
-print(XORonSentence("$L&MK", "world"))
-print(XORonSentence("sussy", "world"))
+def generateKey(msg, key):
+    if len(msg) == len(key):
+        return key
+
+    elif len(msg) < len(key):
+        key[0:len(msg)]
+        return key
+
+    else: 
+        genkey = ""
+        remainder = len(msg)%len(key)
+        for i in range(math.floor(len(msg)/len(key))):
+            genkey += key
+        genkey += key[0:remainder]
+        return genkey
+        
+
+msg = input("Please enter a message you want to encypt: ")
+key = input("Please Enter a key: ")
+print("Your encrypted message is ", XORonSentence(msg, key))
+
     
